@@ -19,6 +19,7 @@ interface AuthContextType {
   register: (email: string, password: string, name?: string, profession?: string) => Promise<void>
   logout: () => Promise<void>
   refreshUser: () => Promise<void>
+  updateUser: (userData: { name?: string; profession?: string; avatar?: string }) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -102,6 +103,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await fetchUser()
   }
 
+  // 更新用户信息
+  const updateUser = async (userData: { name?: string; profession?: string; avatar?: string }) => {
+    const response = await fetch('/api/auth/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(userData),
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.error || '更新用户信息失败')
+    }
+
+    setUser(data.user)
+  }
+
   useEffect(() => {
     fetchUser()
   }, [])
@@ -112,7 +133,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     login,
     register,
     logout,
-    refreshUser
+    refreshUser,
+    updateUser
   }
 
   return (

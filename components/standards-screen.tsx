@@ -12,16 +12,91 @@ import {
   ChevronDown,
   BookOpen,
 } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+
+interface Standard {
+  id: string
+  title: string
+  description: string
+  content: string
+  profession: string
+  category: string
+  version: string
+  createdAt: string
+  updatedAt: string
+}
 
 export default function StandardsScreen() {
   const [selectedCategory, setSelectedCategory] = useState("tv")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [standards, setStandards] = useState<Standard[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState("")
+  const router = useRouter()
 
   const categoryLabels = {
     tv: "电视播控",
     radio: "广播播控",
     tech: "技术运维",
+  }
+
+  // 获取操作规范数据
+  useEffect(() => {
+    fetchStandards()
+  }, [selectedCategory])
+
+  const fetchStandards = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(`/api/standards?profession=${selectedCategory}`)
+      if (response.ok) {
+        const data = await response.json()
+        setStandards(data.standards || [])
+      }
+    } catch (error) {
+      console.error('获取操作规范失败:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // 处理文档点击
+  const handleDocumentClick = (standardId: string) => {
+    router.push(`/standards/${standardId}`)
+  }
+
+  // 过滤搜索结果
+  const filteredStandards = standards.filter(standard =>
+    standard.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    standard.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  // 获取图标和颜色
+  const getIconAndColor = (category: string, index: number) => {
+    const icons = [FileText, Shield, AlertTriangle, BookOpen, Zap]
+    const colors = [
+      { from: '#4ade80', to: '#22c55e', bg: '#4ade80' },
+      { from: '#0ea5e9', to: '#22d3ee', bg: '#0ea5e9' },
+      { from: '#f59e0b', to: '#d97706', bg: '#f59e0b' },
+      { from: '#8b5cf6', to: '#a855f7', bg: '#8b5cf6' },
+      { from: '#ef4444', to: '#dc2626', bg: '#ef4444' }
+    ]
+
+    const IconComponent = icons[index % icons.length]
+    const color = colors[index % colors.length]
+
+    return { IconComponent, color }
+  }
+
+  // 格式化日期
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
   }
 
   return (
@@ -91,195 +166,80 @@ export default function StandardsScreen() {
           <input
             type="text"
             placeholder="搜索操作规范..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-white border border-[#4ade80]/20 rounded-xl pl-10 sm:pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#4ade80] text-gray-800 placeholder-gray-400 shadow-sm text-sm sm:text-base"
           />
         </div>
       </div>
 
-      {selectedCategory === "tv" && (
-        <div className="space-y-4 sm:space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#22c55e] to-[#4ade80] bg-clip-text text-transparent">
-              电视播控规范
-            </h2>
-            <button className="text-[#4ade80] flex items-center text-xs sm:text-sm">
-              查看全部
-              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
-            </button>
-          </div>
-
-          <div className="space-y-3 sm:space-y-4">
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#4ade80] to-[#22c55e] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <FileText className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">电视播控基础操作规范</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-06-12</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#4ade80]/10 flex items-center justify-center group-hover:bg-[#4ade80]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#4ade80]" />
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <Shield className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">电视播出安全操作指南</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-05-20</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0ea5e9]/10 flex items-center justify-center group-hover:bg-[#0ea5e9]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#0ea5e9]" />
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#4ade80] to-[#22c55e] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <AlertTriangle className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">
-                    电视播出紧急情况处理流程
-                  </h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-06-05</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#4ade80]/10 flex items-center justify-center group-hover:bg-[#4ade80]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#4ade80]" />
-                </button>
-              </div>
-            </div>
-          </div>
+      <div className="space-y-4 sm:space-y-6">
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#22c55e] to-[#4ade80] bg-clip-text text-transparent">
+            {categoryLabels[selectedCategory as keyof typeof categoryLabels]}规范
+          </h2>
+          <button className="text-[#4ade80] flex items-center text-xs sm:text-sm">
+            查看全部
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
+          </button>
         </div>
-      )}
 
-      {selectedCategory === "radio" && (
-        <div className="space-y-4 sm:space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] bg-clip-text text-transparent">
-              广播播控规范
-            </h2>
-            <button className="text-[#0ea5e9] flex items-center text-xs sm:text-sm">
-              查看全部
-              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
-            </button>
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4ade80]"></div>
           </div>
-
+        ) : filteredStandards.length === 0 ? (
+          <div className="text-center py-12">
+            <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500">暂无操作规范文档</p>
+          </div>
+        ) : (
           <div className="space-y-3 sm:space-y-4">
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <BookOpen className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
+            {filteredStandards.map((standard, index) => {
+              const { IconComponent, color } = getIconAndColor(standard.category, index)
+              return (
+                <div
+                  key={standard.id}
+                  className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-gray-100 hover:border-gray-200 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+                  onClick={() => handleDocumentClick(standard.id)}
+                >
+                  <div className="flex items-center">
+                    <div
+                      className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow"
+                      style={{
+                        background: `linear-gradient(to bottom right, ${color.from}, ${color.to})`
+                      }}
+                    >
+                      <IconComponent className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">
+                        {standard.title}
+                      </h3>
+                      <p className="text-gray-500 text-xs sm:text-sm">
+                        最后更新: {formatDate(standard.updatedAt)}
+                      </p>
+                    </div>
+                    <button
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors"
+                      style={{ backgroundColor: `${color.bg}10` }}
+                    >
+                      <ArrowRight
+                        className="h-4 w-4 sm:h-5 sm:w-5"
+                        style={{ color: color.bg }}
+                      />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">广播播控基础操作规范</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-05-18</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0ea5e9]/10 flex items-center justify-center group-hover:bg-[#0ea5e9]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#0ea5e9]" />
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <Clock className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">广播设备维护规范</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-05-22</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0ea5e9]/10 flex items-center justify-center group-hover:bg-[#0ea5e9]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#0ea5e9]" />
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <AlertTriangle className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">广播播出应急预案</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-06-15</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0ea5e9]/10 flex items-center justify-center group-hover:bg-[#0ea5e9]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#0ea5e9]" />
-                </button>
-              </div>
-            </div>
+              )
+            })}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {selectedCategory === "tech" && (
-        <div className="space-y-4 sm:space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#f59e0b] to-[#d97706] bg-clip-text text-transparent">
-              技术运维规范
-            </h2>
-            <button className="text-[#f59e0b] flex items-center text-xs sm:text-sm">
-              查看全部
-              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
-            </button>
-          </div>
 
-          <div className="space-y-3 sm:space-y-4">
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#f59e0b] to-[#d97706] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <Shield className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">技术设备维护手册</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-06-05</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center group-hover:bg-[#f59e0b]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#f59e0b]" />
-                </button>
-              </div>
-            </div>
 
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#f59e0b] to-[#d97706] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <Zap className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">系统故障排查指南</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-06-10</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center group-hover:bg-[#f59e0b]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#f59e0b]" />
-                </button>
-              </div>
-            </div>
 
-            <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md">
-              <div className="flex items-center">
-                <div className="bg-gradient-to-br from-[#f59e0b] to-[#d97706] w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mr-4 sm:mr-6 shadow-md group-hover:shadow-lg transition-shadow">
-                  <FileText className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-base sm:text-xl mb-0.5 sm:mb-1 text-gray-800">设备巡检标准流程</h3>
-                  <p className="text-gray-500 text-xs sm:text-sm">最后更新: 2025-05-28</p>
-                </div>
-                <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#f59e0b]/10 flex items-center justify-center group-hover:bg-[#f59e0b]/20 transition-colors">
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#f59e0b]" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

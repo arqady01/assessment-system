@@ -1,6 +1,19 @@
 import { Search, Filter, BookOpen, Star, ChevronRight, Settings, Zap, Shield, Monitor, Cpu, HardDrive } from "lucide-react"
+import { useState } from "react"
+import CaseDetailScreen from "./case-detail-screen"
 
 export default function CaseLibraryScreen() {
+  const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null)
+
+  // 如果选中了案例，显示详情页面
+  if (selectedCaseId) {
+    return (
+      <CaseDetailScreen
+        caseId={selectedCaseId}
+        onBack={() => setSelectedCaseId(null)}
+      />
+    )
+  }
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto">
       <header className="flex justify-between items-center">
@@ -47,7 +60,10 @@ export default function CaseLibraryScreen() {
       </div>
 
       <div className="space-y-4 sm:space-y-6">
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("1")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/circuit-board.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -80,7 +96,13 @@ export default function CaseLibraryScreen() {
                   故障排除
                 </span>
               </div>
-              <button className="text-[#0ea5e9] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("1")
+                }}
+                className="text-[#0ea5e9] font-medium flex items-center text-xs sm:text-sm hover:text-[#0284c7] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>
@@ -88,7 +110,10 @@ export default function CaseLibraryScreen() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("2")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#4ade80] to-[#22c55e]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/flow-pattern.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -121,7 +146,13 @@ export default function CaseLibraryScreen() {
                   效率提升
                 </span>
               </div>
-              <button className="text-[#4ade80] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("2")
+                }}
+                className="text-[#4ade80] font-medium flex items-center text-xs sm:text-sm hover:text-[#22c55e] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>
@@ -130,7 +161,10 @@ export default function CaseLibraryScreen() {
         </div>
 
         {/* 第三个案例 - 安全监控系统 */}
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("1")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#f59e0b] to-[#d97706]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/security-pattern.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -163,7 +197,13 @@ export default function CaseLibraryScreen() {
                   系统升级
                 </span>
               </div>
-              <button className="text-[#f59e0b] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("1")
+                }}
+                className="text-[#f59e0b] font-medium flex items-center text-xs sm:text-sm hover:text-[#d97706] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>
@@ -172,7 +212,10 @@ export default function CaseLibraryScreen() {
         </div>
 
         {/* 第四个案例 - 网络优化 */}
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#8b5cf6]/10 hover:border-[#8b5cf6]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("2")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#8b5cf6]/10 hover:border-[#8b5cf6]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/network-pattern.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -205,7 +248,13 @@ export default function CaseLibraryScreen() {
                   传输技术
                 </span>
               </div>
-              <button className="text-[#8b5cf6] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("2")
+                }}
+                className="text-[#8b5cf6] font-medium flex items-center text-xs sm:text-sm hover:text-[#7c3aed] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>
@@ -214,7 +263,10 @@ export default function CaseLibraryScreen() {
         </div>
 
         {/* 第五个案例 - 应急处理 */}
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#ef4444]/10 hover:border-[#ef4444]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("1")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#ef4444]/10 hover:border-[#ef4444]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#ef4444] to-[#dc2626]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/emergency-pattern.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -247,7 +299,13 @@ export default function CaseLibraryScreen() {
                   断电故障
                 </span>
               </div>
-              <button className="text-[#ef4444] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("1")
+                }}
+                className="text-[#ef4444] font-medium flex items-center text-xs sm:text-sm hover:text-[#dc2626] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>
@@ -256,7 +314,10 @@ export default function CaseLibraryScreen() {
         </div>
 
         {/* 第六个案例 - 系统维护 */}
-        <div className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#06b6d4]/10 hover:border-[#06b6d4]/30 transition-colors group shadow-sm hover:shadow-md">
+        <div
+          onClick={() => setSelectedCaseId("2")}
+          className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#06b6d4]/10 hover:border-[#06b6d4]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
+        >
           <div className="h-40 sm:h-56 bg-gradient-to-br from-[#06b6d4] to-[#0891b2]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/maintenance-pattern.svg')] opacity-10" />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
@@ -289,7 +350,13 @@ export default function CaseLibraryScreen() {
                   最佳实践
                 </span>
               </div>
-              <button className="text-[#06b6d4] font-medium flex items-center text-xs sm:text-sm">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedCaseId("2")
+                }}
+                className="text-[#06b6d4] font-medium flex items-center text-xs sm:text-sm hover:text-[#0891b2] transition-colors"
+              >
                 查看详情
                 <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
               </button>

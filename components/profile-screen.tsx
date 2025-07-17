@@ -4,6 +4,7 @@ import { Settings, BookOpen, Star, LogOut, ArrowRight, ChevronRight, User, Shiel
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/AuthContext"
+import EditProfileModal from "./edit-profile-modal"
 
 interface UserStats {
   totalAnswered: number
@@ -23,6 +24,7 @@ export default function ProfileScreen() {
     recentActivity: 0
   })
   const [loading, setLoading] = useState(true)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -141,6 +143,7 @@ export default function ProfileScreen() {
             </div>
 
             <motion.button
+              onClick={() => setIsEditModalOpen(true)}
               className="bg-gray-50 hover:bg-gray-100 p-4 rounded-2xl border border-gray-200 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -328,7 +331,7 @@ export default function ProfileScreen() {
             return (
               <motion.div
                 key={index}
-                onClick={item.isLogout ? handleLogout : undefined}
+                onClick={item.isLogout ? handleLogout : () => setIsEditModalOpen(true)}
                 className={`group bg-white rounded-3xl p-6 border shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer ${
                   item.isLogout ? "border-red-100 hover:border-red-200" : "border-gray-100"
                 }`}
@@ -379,7 +382,12 @@ export default function ProfileScreen() {
           })}
         </div>
       </motion.div>
+
+      {/* 编辑个人信息模态框 */}
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+      />
     </motion.div>
   )
 }
-
