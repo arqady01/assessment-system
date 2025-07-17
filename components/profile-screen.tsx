@@ -1,11 +1,12 @@
 "use client"
 
-import { Settings, BookOpen, Star, LogOut, ArrowRight, ChevronRight, User, Shield, BookmarkIcon } from "lucide-react"
-import { motion } from "framer-motion"
+import { Settings, BookOpen, Star, LogOut, ArrowRight, ChevronRight, User, Shield, BookmarkIcon, Award, TrendingUp, Edit, Bell, Palette, Globe, HelpCircle, Clock, Target, BarChart3, Calendar, Trophy, Zap, Brain, Heart, Download, Share2, Camera, Mail, Phone, MapPin, Briefcase, GraduationCap, Users, MessageSquare, Bookmark, Eye, ThumbsUp, Gift, Crown, Medal, CheckCircle2, Activity, PieChart, LineChart, BarChart, TrendingDown, Plus, Filter, Search, MoreHorizontal } from "lucide-react"
+import { MotionDiv, MotionButton, MotionH2, MotionP } from "@/lib/motion-wrapper"
 import { useState, useEffect } from "react"
 import { useAuth } from "@/contexts/AuthContext"
 import EditProfileModal from "./edit-profile-modal"
 
+// 原有用户统计接口
 interface UserStats {
   totalAnswered: number
   correctAnswered: number
@@ -13,6 +14,251 @@ interface UserStats {
   completionRate: number
   recentActivity: number
 }
+
+// 扩展学习统计接口
+interface ExtendedLearningStats {
+  totalCases: number
+  completedCases: number
+  totalHours: number
+  currentStreak: number
+  longestStreak: number
+  averageScore: number
+  totalPoints: number
+  level: number
+  nextLevelPoints: number
+  weeklyGoal: number
+  weeklyProgress: number
+  monthlyProgress: number[]
+  categoryProgress: { [key: string]: number }
+  skillLevels: { [key: string]: number }
+}
+
+// 成就系统接口
+interface Achievement {
+  id: string
+  title: string
+  description: string
+  icon: string
+  category: 'learning' | 'social' | 'milestone' | 'special'
+  rarity: 'common' | 'rare' | 'epic' | 'legendary'
+  unlockedAt?: string
+  progress?: number
+  maxProgress?: number
+  points: number
+}
+
+// 学习历史接口
+interface LearningHistory {
+  date: string
+  casesCompleted: number
+  hoursSpent: number
+  pointsEarned: number
+  achievements: string[]
+  activities: ActivityRecord[]
+}
+
+// 活动记录接口
+interface ActivityRecord {
+  id: string
+  type: 'case_completed' | 'achievement_unlocked' | 'comment_posted' | 'case_liked' | 'streak_milestone' | 'level_up' | 'badge_earned'
+  title: string
+  description: string
+  timestamp: string
+  points?: number
+  relatedCase?: string
+  icon?: string
+  color?: string
+}
+
+// 学习目标接口
+interface LearningGoal {
+  id: string
+  title: string
+  description: string
+  targetValue: number
+  currentValue: number
+  deadline: string
+  category: string
+  priority: 'low' | 'medium' | 'high'
+  status: 'active' | 'completed' | 'paused'
+}
+
+// 技能评估接口
+interface SkillAssessment {
+  skillName: string
+  currentLevel: number
+  maxLevel: number
+  experience: number
+  nextLevelExp: number
+  recentProgress: number[]
+  recommendations: string[]
+}
+
+// 模拟扩展学习数据
+const mockExtendedStats: ExtendedLearningStats = {
+  totalCases: 156,
+  completedCases: 134,
+  totalHours: 287,
+  currentStreak: 12,
+  longestStreak: 28,
+  averageScore: 87.5,
+  totalPoints: 15420,
+  level: 8,
+  nextLevelPoints: 2580,
+  weeklyGoal: 10,
+  weeklyProgress: 7,
+  monthlyProgress: [85, 92, 78, 95, 88, 91, 87, 93, 89, 96, 84, 90],
+  categoryProgress: {
+    '技术案例': 85,
+    '安全案例': 92,
+    '管理案例': 78,
+    '运维案例': 88
+  },
+  skillLevels: {
+    '故障诊断': 4,
+    '网络安全': 5,
+    '系统管理': 3,
+    '项目管理': 4,
+    '团队协作': 5
+  }
+}
+
+// 模拟成就数据
+const mockAchievements: Achievement[] = [
+  {
+    id: '1',
+    title: '初学者',
+    description: '完成第一个案例学习',
+    icon: 'GraduationCap',
+    category: 'learning',
+    rarity: 'common',
+    unlockedAt: '2025-06-01',
+    points: 100
+  },
+  {
+    id: '2',
+    title: '连续学习者',
+    description: '连续学习7天',
+    icon: 'Calendar',
+    category: 'milestone',
+    rarity: 'rare',
+    unlockedAt: '2025-06-15',
+    points: 500
+  },
+  {
+    id: '3',
+    title: '技术专家',
+    description: '在技术类案例中获得90%以上的平均分',
+    icon: 'Crown',
+    category: 'learning',
+    rarity: 'epic',
+    unlockedAt: '2025-07-01',
+    points: 1000
+  },
+  {
+    id: '4',
+    title: '社交达人',
+    description: '获得100个点赞',
+    icon: 'Heart',
+    category: 'social',
+    rarity: 'rare',
+    unlockedAt: '2025-07-10',
+    points: 750
+  },
+  {
+    id: '5',
+    title: '传奇学者',
+    description: '完成所有高难度案例',
+    icon: 'Trophy',
+    category: 'milestone',
+    rarity: 'legendary',
+    progress: 8,
+    maxProgress: 10,
+    points: 2000
+  }
+]
+
+// 模拟活动记录
+const mockActivities: ActivityRecord[] = [
+  {
+    id: '1',
+    type: 'case_completed',
+    title: '完成案例学习',
+    description: '成功完成"设备故障诊断与排除"案例',
+    timestamp: '2025-07-17 14:30',
+    points: 150,
+    relatedCase: '设备故障诊断与排除',
+    icon: 'CheckCircle2',
+    color: 'green'
+  },
+  {
+    id: '2',
+    type: 'achievement_unlocked',
+    title: '解锁成就',
+    description: '获得"技术专家"成就',
+    timestamp: '2025-07-16 09:15',
+    points: 1000,
+    icon: 'Crown',
+    color: 'purple'
+  },
+  {
+    id: '3',
+    type: 'level_up',
+    title: '等级提升',
+    description: '恭喜升级到第8级！',
+    timestamp: '2025-07-15 16:45',
+    points: 500,
+    icon: 'TrendingUp',
+    color: 'blue'
+  },
+  {
+    id: '4',
+    type: 'streak_milestone',
+    title: '连续学习里程碑',
+    description: '连续学习12天，继续保持！',
+    timestamp: '2025-07-14 20:00',
+    points: 200,
+    icon: 'Zap',
+    color: 'orange'
+  }
+]
+
+// 模拟学习目标
+const mockGoals: LearningGoal[] = [
+  {
+    id: '1',
+    title: '本月完成10个案例',
+    description: '提升技术能力，完成更多实践案例',
+    targetValue: 10,
+    currentValue: 7,
+    deadline: '2025-07-31',
+    category: '学习进度',
+    priority: 'high',
+    status: 'active'
+  },
+  {
+    id: '2',
+    title: '获得网络安全专家认证',
+    description: '通过所有网络安全相关案例',
+    targetValue: 15,
+    currentValue: 12,
+    deadline: '2025-08-15',
+    category: '技能认证',
+    priority: 'medium',
+    status: 'active'
+  },
+  {
+    id: '3',
+    title: '连续学习30天',
+    description: '养成良好的学习习惯',
+    targetValue: 30,
+    currentValue: 12,
+    deadline: '2025-08-01',
+    category: '学习习惯',
+    priority: 'high',
+    status: 'active'
+  }
+]
 
 export default function ProfileScreen() {
   const { user, logout } = useAuth()
@@ -25,6 +271,15 @@ export default function ProfileScreen() {
   })
   const [loading, setLoading] = useState(true)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+
+  // 新增状态管理
+  const [activeTab, setActiveTab] = useState<'overview' | 'achievements' | 'history' | 'goals' | 'settings'>('overview')
+  const [extendedStats] = useState<ExtendedLearningStats>(mockExtendedStats)
+  const [achievements] = useState<Achievement[]>(mockAchievements)
+  const [activities] = useState<ActivityRecord[]>(mockActivities)
+  const [goals] = useState<LearningGoal[]>(mockGoals)
+  const [showAllAchievements, setShowAllAchievements] = useState(false)
+  const [selectedTimeRange, setSelectedTimeRange] = useState<'week' | 'month' | 'year'>('month')
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -77,28 +332,28 @@ export default function ProfileScreen() {
   }
 
   return (
-    <motion.div
-      {...({ className: "p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto" } as any)}
+    <MotionDiv
+      className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Profile Header */}
-      <motion.div
-        {...({ className: "bg-white rounded-3xl shadow-lg border border-gray-100" } as any)}
+      <MotionDiv
+        className="bg-white rounded-3xl shadow-lg border border-gray-100"
         variants={itemVariants}
         whileHover={{ scale: 1.01 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
         <div className="p-8">
           <div className="flex items-center">
-            <motion.div
-              {...({ className: "w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-200" } as any)}
+            <MotionDiv
+              className="w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-200"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <User className="h-10 w-10 text-gray-600" />
-            </motion.div>
+            </MotionDiv>
 
             <div className="ml-6 flex-1">
               <motion.h2
