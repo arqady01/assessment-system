@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { 
-  ArrowLeft, 
-  FileText, 
-  Calendar, 
-  Tag, 
+import {
+  ArrowLeft,
+  Calendar,
+  Tag,
   User,
   Download,
   Share2,
@@ -95,7 +94,7 @@ export default function StandardDetailPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center">
         <div className="text-center">
-          <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+          <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-gray-600 mb-2">文档不存在</h2>
           <p className="text-gray-500 mb-6">您访问的操作规范文档不存在或已被删除</p>
           <button

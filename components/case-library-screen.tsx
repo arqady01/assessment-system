@@ -17,11 +17,8 @@ export default function CaseLibraryScreen() {
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto">
       <header className="flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#0ea5e9] to-[#22d3ee] flex items-center justify-center shadow-md">
-            <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-          </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#0284c7] to-[#0ea5e9] bg-clip-text text-transparent">
+        <div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black">
             案例库
           </h1>
         </div>

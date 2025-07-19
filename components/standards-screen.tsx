@@ -2,7 +2,6 @@
 
 import {
   Search,
-  FileText,
   Clock,
   ArrowRight,
   ChevronRight,
@@ -74,7 +73,7 @@ export default function StandardsScreen() {
 
   // 获取图标和颜色
   const getIconAndColor = (category: string, index: number) => {
-    const icons = [FileText, Shield, AlertTriangle, BookOpen, Zap]
+    const icons = [BookOpen, Shield, AlertTriangle, BookOpen, Zap]
     const colors = [
       { from: '#4ade80', to: '#22c55e', bg: '#4ade80' },
       { from: '#0ea5e9', to: '#22d3ee', bg: '#0ea5e9' },
@@ -102,11 +101,8 @@ export default function StandardsScreen() {
   return (
     <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto">
       <header className="flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#4ade80] to-[#22c55e] flex items-center justify-center shadow-md">
-            <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
-          </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#22c55e] to-[#4ade80] bg-clip-text text-transparent">
+        <div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black">
             操作规范
           </h1>
         </div>
@@ -175,10 +171,10 @@ export default function StandardsScreen() {
 
       <div className="space-y-4 sm:space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-[#22c55e] to-[#4ade80] bg-clip-text text-transparent">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-black">
             {categoryLabels[selectedCategory as keyof typeof categoryLabels]}规范
           </h2>
-          <button className="text-[#4ade80] flex items-center text-xs sm:text-sm">
+          <button className="text-black flex items-center text-xs sm:text-sm">
             查看全部
             <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
           </button>
@@ -190,7 +186,7 @@ export default function StandardsScreen() {
           </div>
         ) : filteredStandards.length === 0 ? (
           <div className="text-center py-12">
-            <FileText className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+            <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500">暂无操作规范文档</p>
           </div>
         ) : (

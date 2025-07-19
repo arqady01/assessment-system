@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowRight, Clock, Star, ChevronRight, Zap, Award, BookOpen, Shield, Flame } from "lucide-react"
+import { ArrowRight, Clock, Star, ChevronRight, Award, BookOpen, Shield, Flame } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -63,10 +63,10 @@ export default function PracticeScreen() {
       gradient: "from-blue-500 to-cyan-400"
     },
     {
-      id: "radio", 
+      id: "radio",
       title: "广播播控",
       description: "广播播出控制相关题目",
-      icon: Zap,
+      icon: BookOpen,
       color: "emerald",
       gradient: "from-emerald-500 to-green-400"
     },
@@ -108,7 +108,6 @@ export default function PracticeScreen() {
   const getIconComponent = (iconName: string) => {
     const icons: { [key: string]: any } = {
       BookOpen,
-      Zap,
       Shield,
       Flame,
       Award
@@ -128,20 +127,11 @@ export default function PracticeScreen() {
         className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0"
         variants={itemVariants}
       >
-        <div className="flex items-center space-x-3">
-          <motion.div 
-            className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center shadow-lg"
-            whileHover={{ scale: 1.05, rotate: 5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Zap className="h-6 w-6 text-white" />
-          </motion.div>
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-              做题练习
-            </h1>
-            <p className="text-gray-500 text-sm">提升专业技能，挑战自我</p>
-          </div>
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-black">
+            做题练习
+          </h1>
+          <p className="text-gray-500 text-sm">提升专业技能，挑战自我</p>
         </div>
         
         <div className="flex space-x-3 w-full sm:w-auto">

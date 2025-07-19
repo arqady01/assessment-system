@@ -1,6 +1,6 @@
 "use client"
 
-import { BookOpen, FileText, FolderOpen, User } from "lucide-react"
+import { BookOpen, FolderOpen, User, FileCheck } from "lucide-react"
 import { motion } from "framer-motion"
 
 interface BottomNavigationProps {
@@ -11,7 +11,7 @@ interface BottomNavigationProps {
 export default function BottomNavigation({ activeTab, setActiveTab }: BottomNavigationProps) {
   const tabs = [
     { id: "practice", icon: BookOpen, label: "做题", color: "blue" },
-    { id: "standards", icon: FileText, label: "操作规范", color: "emerald" },
+    { id: "standards", icon: FileCheck, label: "操作规范", color: "emerald" },
     { id: "cases", icon: FolderOpen, label: "案例库", color: "blue" },
     { id: "profile", icon: User, label: "我的", color: "emerald" }
   ]

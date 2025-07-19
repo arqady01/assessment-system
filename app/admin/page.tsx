@@ -9,7 +9,7 @@ import SystemSettings from "@/components/admin/SystemSettings"
 import {
   Users,
   BookOpen,
-  FileText,
+  FileCheck,
   BarChart3,
   Settings,
   Plus,
@@ -50,7 +50,7 @@ export default function AdminPage() {
     { id: "dashboard", label: "仪表板", icon: BarChart3 },
     { id: "users", label: "用户管理", icon: Users },
     { id: "questions", label: "题目管理", icon: BookOpen },
-    { id: "categories", label: "分类管理", icon: FileText },
+    { id: "categories", label: "分类管理", icon: FileCheck },
     { id: "settings", label: "系统设置", icon: Settings }
   ]
 
@@ -72,7 +72,7 @@ export default function AdminPage() {
     {
       title: "考试次数",
       value: stats.totalExams,
-      icon: FileText,
+      icon: FileCheck,
       color: "purple",
       change: "+24%"
     },
