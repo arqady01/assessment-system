@@ -211,11 +211,11 @@ export default function ProfileScreen() {
         variants={itemVariants}
       >
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold text-black">
             我的学习
           </h2>
           <motion.button
-            className="text-emerald-600 flex items-center text-sm font-medium hover:text-emerald-700 transition-colors"
+            className="text-black flex items-center text-sm font-medium hover:text-gray-700 transition-colors"
             whileHover={{ x: 5 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -305,7 +305,7 @@ export default function ProfileScreen() {
         className="space-y-6"
         variants={itemVariants}
       >
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-500 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-bold text-black">
           设置
         </h2>
 

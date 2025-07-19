@@ -39,7 +39,7 @@ export default function CaseLibraryScreen() {
       </div>
 
       <div className="flex overflow-x-auto space-x-2 sm:space-x-3 py-2 -mx-4 px-4 scrollbar-hide">
-        <button className="bg-gradient-to-r from-[#0ea5e9] to-[#22d3ee] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm whitespace-nowrap shadow-md">
+        <button className="bg-black text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm whitespace-nowrap shadow-md">
           全部
         </button>
         <button className="bg-white hover:bg-gray-50 border border-[#0ea5e9]/20 text-gray-700 px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm whitespace-nowrap shadow-sm transition-colors">
@@ -56,21 +56,21 @@ export default function CaseLibraryScreen() {
         </button>
       </div>
 
-      <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <div
           onClick={() => setSelectedCaseId("1")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#0ea5e9]/10 hover:border-[#0ea5e9]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#0ea5e9] to-[#22d3ee]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/circuit-board.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <HardDrive className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <HardDrive className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               经典案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">设备故障诊断与排除</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">设备故障诊断与排除</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
@@ -111,16 +111,16 @@ export default function CaseLibraryScreen() {
           onClick={() => setSelectedCaseId("2")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#4ade80]/10 hover:border-[#4ade80]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#4ade80] to-[#22c55e]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#4ade80] to-[#22c55e]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/flow-pattern.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <Settings className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <Settings className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               最新案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">操作流程优化实践</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">操作流程优化实践</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
@@ -162,16 +162,16 @@ export default function CaseLibraryScreen() {
           onClick={() => setSelectedCaseId("1")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#f59e0b]/10 hover:border-[#f59e0b]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#f59e0b] to-[#d97706]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#f59e0b] to-[#d97706]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/security-pattern.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <Shield className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               安全案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">播出安全监控系统升级</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">播出安全监控系统升级</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
@@ -213,16 +213,16 @@ export default function CaseLibraryScreen() {
           onClick={() => setSelectedCaseId("2")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#8b5cf6]/10 hover:border-[#8b5cf6]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/network-pattern.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <Monitor className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <Monitor className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               技术案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">网络传输优化方案</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">网络传输优化方案</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
@@ -264,16 +264,16 @@ export default function CaseLibraryScreen() {
           onClick={() => setSelectedCaseId("1")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#ef4444]/10 hover:border-[#ef4444]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#ef4444] to-[#dc2626]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#ef4444] to-[#dc2626]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/emergency-pattern.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <Zap className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <Zap className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               应急案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">突发断电应急处理</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">突发断电应急处理</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
@@ -315,16 +315,16 @@ export default function CaseLibraryScreen() {
           onClick={() => setSelectedCaseId("2")}
           className="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-[#06b6d4]/10 hover:border-[#06b6d4]/30 transition-colors group shadow-sm hover:shadow-md cursor-pointer"
         >
-          <div className="h-40 sm:h-56 bg-gradient-to-br from-[#06b6d4] to-[#0891b2]/70 relative overflow-hidden">
+          <div className="h-32 sm:h-40 bg-gradient-to-br from-[#06b6d4] to-[#0891b2]/70 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-full bg-[url('/patterns/maintenance-pattern.svg')] opacity-10" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
-              <Cpu className="h-12 w-12 sm:h-16 sm:w-16 text-white" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+              <Cpu className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
             </div>
             <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-white/20 backdrop-blur-sm text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md">
               维护案例
             </div>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
-              <h3 className="text-lg sm:text-2xl font-bold text-white">系统定期维护实践</h3>
+              <h3 className="text-sm sm:text-lg font-bold text-white">系统定期维护实践</h3>
             </div>
           </div>
           <div className="p-4 sm:p-6">
