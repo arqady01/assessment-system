@@ -197,6 +197,139 @@ ADMIN_PASSWORD="admin123456"
 
 MIT License
 
+## 🔧 启动问题排查
+
+### 常见问题及解决方案
+
+在实际启动过程中，可能会遇到以下问题：
+
+#### 1. 依赖安装冲突
+
+**问题现象**：
+```bash
+npm error Could not resolve dependency:
+npm error peerOptional react@"^18.0.0" from framer-motion@11.11.17
+npm error Conflicting peer dependency: react@18.3.1
+```
+
+**解决方案**：
+使用 `--legacy-peer-deps` 选项安装依赖：
+```bash
+npm install --legacy-peer-deps
+```
+
+#### 2. 环境变量未配置
+
+**问题现象**：
+```bash
+Error: Environment variable not found: DATABASE_URL.
+```
+
+**解决方案**：
+创建 `.env.local` 文件并配置必要的环境变量：
+```bash
+# 创建环境配置文件
+touch .env.local
+```
+
+在 `.env.local` 中添加以下内容：
+```env
+# 数据库连接
+DATABASE_URL="file:./dev.db"
+
+# 认证配置
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key-for-development"
+JWT_SECRET="your-jwt-secret-for-development"
+
+# 管理员账号
+ADMIN_EMAIL="admin@example.com"
+ADMIN_PASSWORD="admin123456"
+```
+
+#### 3. Prisma 无法读取环境变量
+
+**问题现象**：
+即使创建了 `.env.local` 文件，Prisma 仍然报告找不到 `DATABASE_URL`。
+
+**解决方案**：
+在命令行中直接设置环境变量：
+```bash
+# 推送数据库模式
+DATABASE_URL="file:./dev.db" npm run db:push
+
+# 运行种子数据
+DATABASE_URL="file:./dev.db" npm run db:seed
+```
+
+### 完整启动流程
+
+基于实际测试，推荐的完整启动流程：
+
+1. **安装依赖**（处理冲突）
+```bash
+npm install --legacy-peer-deps
+```
+
+2. **创建环境配置**
+```bash
+# 创建 .env.local 文件
+cat > .env.local << EOF
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key-for-development"
+JWT_SECRET="your-jwt-secret-for-development"
+ADMIN_EMAIL="admin@example.com"
+ADMIN_PASSWORD="admin123456"
+EOF
+```
+
+3. **初始化数据库**（使用环境变量前缀）
+```bash
+# 推送数据库模式
+DATABASE_URL="file:./dev.db" npm run db:push
+
+# 运行种子数据
+DATABASE_URL="file:./dev.db" npm run db:seed
+```
+
+4. **启动开发服务器**
+```bash
+npm run dev
+```
+
+5. **验证启动**
+- 访问 http://localhost:3000 查看前端
+- 访问 http://localhost:3000/admin 查看管理后台
+- 使用默认账号登录测试
+
+### 启动成功标志
+
+当看到以下输出时，表示启动成功：
+```bash
+▲ Next.js 15.2.4
+- Local:        http://localhost:3000
+- Network:      http://192.168.124.42:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 2.6s
+```
+
+### 数据库管理
+
+启动成功后，可以使用以下工具管理数据库：
+```bash
+# 打开 Prisma Studio（数据库可视化管理）
+npm run db:studio
+
+# 检查题目统计
+npm run check-questions
+
+# 添加更多示例题目
+npm run add-questions
+```
+
 ## 📞 支持
 
 如有问题，请提交Issue或联系开发团队。
