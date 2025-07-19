@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// 用户模型
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  password    String
+  role        Role     @default(STUDENT)
+  profession  String?  // 专业方向：tv, radio, tech
+  avatar      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 关联
+  examResults ExamResult[]
+  favorites   Favorite[]
+  studyLogs   StudyLog[]
+
+  @@map("users")
+}
+
+// 用户角色
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+// 题目分类
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  profession  String     // tv, radio, tech
+  color       String     @default("#3b82f6")
+  icon        String     @default("BookOpen")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // 关联
+  questions   Question[]
+
+  @@unique([name, profession])
+  @@map("categories")
+}
+
+// 题目模型
+model Question {
+  id          String       @id @default(cuid())
+  title       String
+  content     String
+  type        QuestionType @default(SINGLE_CHOICE)
+  difficulty  Difficulty   @default(MEDIUM)
+  explanation String?      // 答案解析
+  categoryId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // 关联
+  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  options     Option[]
+  examResults ExamResult[]
+  favorites   Favorite[]
+
+  @@map("questions")
+}
+
+// 题目类型
+enum QuestionType {
+  SINGLE_CHOICE   // 单选
+  MULTIPLE_CHOICE // 多选
+  TRUE_FALSE      // 判断
+  FILL_BLANK      // 填空
+}
+
+// 难度等级
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+// 选项模型
+model Option {
+  id         String  @id @default(cuid())
+  content    String
+  isCorrect  Boolean @default(false)
+  questionId String
+
+  // 关联
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("options")
+}
+
+// 考试结果
+model ExamResult {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  userAnswer String   // 用户答案
+  isCorrect  Boolean
+  timeSpent  Int      // 答题用时(秒)
+  createdAt  DateTime @default(now())
+
+  // 关联
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("exam_results")
+}
+
+// 收藏
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  createdAt  DateTime @default(now())
+
+  // 关联
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@map("favorites")
+}
+
+// 学习记录
+model StudyLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // 学习行为：practice, exam, review
+  details   String?  // JSON格式的详细信息
+  createdAt DateTime @default(now())
+
+  // 关联
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("study_logs")
+}
+
+// 案例库
+model Case {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String   // 案例详细内容
+  profession  String   // 专业方向
+  tags        String?  // JSON格式的标签
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("cases")
+}
+
+// 操作规范
+model Standard {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String   // 规范详细内容
+  profession  String   // 专业方向
+  category    String   // 规范分类
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("standards")
+}
+
+// 系统设置
+model SystemSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("system_settings")
+}
