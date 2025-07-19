@@ -92,12 +92,6 @@ export default function AdminPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <motion.div
-                className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mr-3"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Settings className="h-5 w-5 text-white" />
-              </motion.div>
               <h1 className="text-xl font-semibold text-gray-900">管理后台</h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -127,13 +121,13 @@ export default function AdminPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center px-4 py-3 text-left rounded-xl transition-all duration-200 ${
                       isActive
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        ? "bg-black text-white border border-black"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Icon className={`h-5 w-5 mr-3 ${isActive ? "text-blue-600" : "text-gray-400"}`} />
+                    <Icon className={`h-5 w-5 mr-3 ${isActive ? "text-white" : "text-gray-400"}`} />
                     {tab.label}
                   </motion.button>
                 )
