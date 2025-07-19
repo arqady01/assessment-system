@@ -333,3 +333,29 @@ npm run add-questions
 ## 📞 支持
 
 如有问题，请提交Issue或联系开发团队。
+
+## 软著相关
+🎯 推荐的18个核心文件
+1. 数据库与配置层 (3个文件)
+ prisma/schema.prisma - 数据库模式定义，系统的数据架构核心
+ lib/prisma.ts - 数据库连接管理
+ lib/auth.ts - 认证系统核心逻辑
+2. 主要页面组件 (4个文件)
+ app/page.tsx - 主页面，系统入口
+ app/login/page.tsx - 登录页面
+ app/admin/page.tsx - 管理后台主页
+ components/practice-screen.tsx - 练习功能核心组件
+3. 核心业务组件 (4个文件)
+ components/profile-screen.tsx - 用户个人中心
+ components/admin/QuestionManager.tsx - 题目管理组件
+ components/admin/CategoryManager.tsx - 分类管理组件
+components/question-card.tsx - 题目卡片组件
+4. API路由层 (5个文件)
+ app/api/auth/login/route.ts - 登录API
+ app/api/questions/route.ts - 题目API
+ app/api/admin/categories/route.ts - 分类管理API
+ app/api/exam/submit/route.ts - 考试提交API
+app/api/user/profile/route.ts - 用户资料API
+5. 系统基础设施 (2个文件)
+ contexts/AuthContext.tsx - 认证上下文管理
+ middleware.ts - 路由中间件和权限控制
