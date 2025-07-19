@@ -133,7 +133,7 @@ export default function CategoryManager() {
         </div>
         <motion.button
           onClick={() => setShowCreateModal(true)}
-          className="bg-emerald-600 text-white px-6 py-3 rounded-xl flex items-center space-x-2 hover:bg-emerald-700 transition-colors"
+          className="bg-blue-600 text-white px-6 py-3 rounded-xl flex items-center space-x-2 hover:bg-blue-700 transition-colors"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -153,7 +153,7 @@ export default function CategoryManager() {
                 placeholder="搜索分类..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function CategoryManager() {
             <select
               value={selectedProfession}
               onChange={(e) => setSelectedProfession(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">所有专业</option>
               {professions.map((profession) => (

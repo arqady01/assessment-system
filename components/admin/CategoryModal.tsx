@@ -161,7 +161,7 @@ export default function CategoryModal({ category, onClose, onSave }: CategoryMod
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="请输入分类名称"
                 required
               />
@@ -174,7 +174,7 @@ export default function CategoryModal({ category, onClose, onSave }: CategoryMod
               <select
                 value={formData.profession}
                 onChange={(e) => setFormData({...formData, profession: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               >
                 {professions.map((profession) => (
@@ -195,7 +195,7 @@ export default function CategoryModal({ category, onClose, onSave }: CategoryMod
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
               rows={3}
-              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="请输入分类描述（可选）"
             />
           </div>
@@ -216,18 +216,18 @@ export default function CategoryModal({ category, onClose, onSave }: CategoryMod
                     type="button"
                     onClick={() => setFormData({...formData, icon: icon.name})}
                     className={`p-3 rounded-xl border-2 transition-all ${
-                      isSelected 
-                        ? 'border-emerald-500 bg-emerald-50' 
+                      isSelected
+                        ? 'border-blue-500 bg-blue-50'
                         : 'border-gray-200 hover:border-gray-300'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     title={icon.label}
                   >
-                    <IconComponent 
+                    <IconComponent
                       className={`h-6 w-6 mx-auto ${
-                        isSelected ? 'text-emerald-600' : 'text-gray-600'
-                      }`} 
+                        isSelected ? 'text-blue-600' : 'text-gray-600'
+                      }`}
                     />
                   </motion.button>
                 )
@@ -314,7 +314,7 @@ export default function CategoryModal({ category, onClose, onSave }: CategoryMod
             <motion.button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
+              className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
