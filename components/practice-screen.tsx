@@ -268,11 +268,11 @@ export default function PracticeScreen() {
               transition={{ delay: 0.7 }}
             >
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold text-gray-600">
                   题目分类
                 </h2>
-                <motion.button 
-                  className="text-blue-600 flex items-center text-sm font-medium hover:text-blue-700 transition-colors"
+                <motion.button
+                  className="text-gray-600 flex items-center text-sm font-medium hover:text-gray-700 transition-colors"
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
