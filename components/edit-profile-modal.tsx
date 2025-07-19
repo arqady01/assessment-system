@@ -5,6 +5,30 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, User, Briefcase, Save, Loader2 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 
+// 添加动画样式
+const animationStyles = `
+  @keyframes wave1 {
+    0% { transform: translateY(-20px) translateX(-10px) scale(1); }
+    50% { transform: translateY(25px) translateX(15px) scale(1.1); }
+    100% { transform: translateY(-20px) translateX(-10px) scale(1); }
+  }
+  @keyframes wave2 {
+    0% { transform: translateY(-15px) translateX(10px) scale(1); }
+    50% { transform: translateY(30px) translateX(-20px) scale(1.15); }
+    100% { transform: translateY(-15px) translateX(10px) scale(1); }
+  }
+  @keyframes wave3 {
+    0% { transform: translateY(-25px) translateX(5px) scale(1); }
+    50% { transform: translateY(20px) translateX(25px) scale(1.05); }
+    100% { transform: translateY(-25px) translateX(5px) scale(1); }
+  }
+  @keyframes wave4 {
+    0% { transform: translateY(-18px) translateX(-5px) scale(1); }
+    50% { transform: translateY(28px) translateX(-15px) scale(1.12); }
+    100% { transform: translateY(-18px) translateX(-5px) scale(1); }
+  }
+`
+
 interface EditProfileModalProps {
   isOpen: boolean
   onClose: () => void
@@ -54,6 +78,9 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* 添加动画样式 */}
+          <style dangerouslySetInnerHTML={{ __html: animationStyles }} />
+
           {/* 背景遮罩 */}
           <motion.div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
@@ -66,12 +93,38 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
           {/* 模态框 */}
           <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
             <motion.div
-              className="bg-white rounded-3xl shadow-2xl w-full max-w-md mx-auto"
+              className="relative w-full max-w-md mx-auto overflow-hidden rounded-3xl shadow-2xl"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
+              {/* 动态背景 blobs */}
+              <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                <div className="absolute w-32 h-32 rounded-full bg-orange-400 -top-10 -left-10 opacity-70"
+                     style={{
+                       animation: 'wave1 4s infinite alternate ease-in-out'
+                     }} />
+                <div className="absolute w-40 h-40 rounded-full bg-pink-400 -top-5 -right-15 opacity-60"
+                     style={{
+                       animation: 'wave2 5s infinite alternate ease-in-out 0.5s'
+                     }} />
+                <div className="absolute w-36 h-36 rounded-full bg-purple-400 -bottom-10 -left-15 opacity-65"
+                     style={{
+                       animation: 'wave3 4.5s infinite alternate ease-in-out 1s'
+                     }} />
+                <div className="absolute w-28 h-28 rounded-full bg-cyan-400 -bottom-5 -right-10 opacity-75"
+                     style={{
+                       animation: 'wave4 3.5s infinite alternate ease-in-out 1.5s'
+                     }} />
+              </div>
+
+              {/* 毛玻璃效果层 */}
+              <div className="absolute inset-0 backdrop-blur-xl bg-white/20 rounded-3xl" />
+
+              {/* 内容容器 */}
+              <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl m-2"
+                   style={{ backdropFilter: 'blur(10px)' }}>
               {/* 头部 */}
               <div className="flex items-center justify-between p-6 border-b border-gray-100">
                 <h2 className="text-2xl font-bold text-gray-900">编辑个人信息</h2>
@@ -106,7 +159,7 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
                     placeholder="请输入您的姓名"
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4ade80] focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
                   />
                 </div>
 
@@ -122,7 +175,7 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
                         key={option.value}
                         className={`flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all ${
                           formData.profession === option.value
-                            ? 'border-[#4ade80] bg-[#4ade80]/5'
+                            ? 'border-black bg-black/5'
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
@@ -136,7 +189,7 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
                         />
                         <div className={`w-5 h-5 rounded-full border-2 mr-3 flex items-center justify-center ${
                           formData.profession === option.value
-                            ? 'border-[#4ade80] bg-[#4ade80]'
+                            ? 'border-black bg-black'
                             : 'border-gray-300'
                         }`}>
                           {formData.profession === option.value && (
@@ -145,7 +198,7 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
                         </div>
                         <span className={`font-medium ${
                           formData.profession === option.value
-                            ? 'text-[#4ade80]'
+                            ? 'text-black'
                             : 'text-gray-700'
                         }`}>
                           {option.label}
@@ -183,6 +236,7 @@ export default function EditProfileModal({ isOpen, onClose }: EditProfileModalPr
                   </button>
                 </div>
               </form>
+              </div>
             </motion.div>
           </div>
         </>

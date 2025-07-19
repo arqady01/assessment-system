@@ -163,23 +163,23 @@ export default function ProfileScreen() {
               {
                 value: loading ? "..." : `${stats.completionRate}%`,
                 label: "完成率",
-                bgColor: "bg-blue-50",
+                bgColor: "bg-gray-50",
                 textColor: "text-blue-600",
-                borderColor: "border-blue-100"
+                borderColor: "border-gray-100"
               },
               {
                 value: loading ? "..." : stats.totalAnswered.toString(),
                 label: "已完成题目",
-                bgColor: "bg-purple-50",
+                bgColor: "bg-gray-50",
                 textColor: "text-purple-600",
-                borderColor: "border-purple-100"
+                borderColor: "border-gray-100"
               },
               {
                 value: loading ? "..." : stats.favoriteCount.toString(),
                 label: "收藏数量",
-                bgColor: "bg-emerald-50",
+                bgColor: "bg-gray-50",
                 textColor: "text-emerald-600",
-                borderColor: "border-emerald-100"
+                borderColor: "border-gray-100"
               }
             ].map((stat, index) => (
               <motion.div
