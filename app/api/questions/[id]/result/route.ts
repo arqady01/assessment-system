@@ -41,14 +41,8 @@ export async function POST(
         isCorrect,
         userId: user.id,
         questionId: question.id,
-        selectedOptions: {
-          create: selectedOptions.map((optionId: string) => ({
-            optionId
-          }))
-        }
-      },
-      include: {
-        selectedOptions: true
+        userAnswer: JSON.stringify(selectedOptions),
+        timeSpent: 0 // 默认值，后续可以添加计时功能
       }
     })
 

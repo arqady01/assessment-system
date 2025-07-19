@@ -4,9 +4,10 @@ import { prisma } from '@/lib/prisma'
 // 获取分类详情
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
     const category = await prisma.category.findUnique({
       where: { id: params.id },
       include: {

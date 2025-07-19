@@ -64,11 +64,8 @@ export async function POST(
           isCorrect,
           userId,
           questionId: question.id,
-          selectedOptions: {
-            create: selectedOptions.map((optionId: string) => ({
-              optionId
-            }))
-          }
+          userAnswer: JSON.stringify(selectedOptions),
+          timeSpent: 0 // 默认值，后续可以添加计时功能
         }
       })
     }
@@ -78,6 +75,7 @@ export async function POST(
       correctOptionIds
     })
   } catch (error) {
+    console.error('检查答案失败:', error)
     return NextResponse.json(
       { error: '检查答案失败' },
       { status: 500 }

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, Mail, Lock, User, Briefcase } from "lucide-react"
 import { useRouter } from "next/navigation"
+import AnimatedButton from "@/components/ui/animated-button"
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true)
@@ -99,13 +100,7 @@ export default function LoginPage() {
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
           {/* Header */}
           <div className="text-center mb-8">
-            <motion.div
-              className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              whileHover={{ scale: 1.05, rotate: 5 }}
-            >
-              <User className="h-8 w-8 text-white" />
-            </motion.div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold text-black">
               {isLogin ? '欢迎回来' : '创建账号'}
             </h1>
             <p className="text-gray-600 mt-2">
@@ -205,15 +200,12 @@ export default function LoginPage() {
               </motion.div>
             )}
 
-            <motion.button
+            <AnimatedButton
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-2xl font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               {loading ? '处理中...' : (isLogin ? '登录' : '注册')}
-            </motion.button>
+            </AnimatedButton>
           </form>
 
           {/* Switch Mode */}

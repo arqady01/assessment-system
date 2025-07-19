@@ -107,7 +107,7 @@ export default function QuestionDetailPage() {
         setIsCorrect(data.isCorrect)
         setIsSubmitted(true)
         setShowExplanation(true)
-        
+
         // 记录答题结果
         await fetch(`/api/questions/${questionId}/result`, {
           method: 'POST',
