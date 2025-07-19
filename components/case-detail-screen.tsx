@@ -1,7 +1,7 @@
 'use client'
 
-import { ArrowLeft, Star, Calendar, Tag, User, Clock, Download, Share2, Heart } from "lucide-react"
-import { MotionDiv } from "@/lib/motion-wrapper"
+import { ArrowLeft, Star, Calendar, Tag, User, Clock, BookOpen, Download, Share2, Heart } from "lucide-react"
+import { motion } from "framer-motion"
 
 interface CaseDetailProps {
   caseId: string
@@ -195,7 +195,7 @@ export default function CaseDetailScreen({ caseId, onBack }: CaseDetailProps) {
   const caseInfo = caseData[caseId as keyof typeof caseData] || caseData["1"]
 
   return (
-    <MotionDiv
+    <motion.div 
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
@@ -230,7 +230,7 @@ export default function CaseDetailScreen({ caseId, onBack }: CaseDetailProps) {
       {/* 案例内容 */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* 案例头部信息 */}
-        <MotionDiv
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-2xl p-8 mb-8 shadow-sm border border-gray-100"
@@ -286,10 +286,10 @@ export default function CaseDetailScreen({ caseId, onBack }: CaseDetailProps) {
               </span>
             ))}
           </div>
-        </MotionDiv>
+        </motion.div>
 
         {/* 案例正文 */}
-        <MotionDiv
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -303,8 +303,8 @@ export default function CaseDetailScreen({ caseId, onBack }: CaseDetailProps) {
               }}
             />
           </div>
-        </MotionDiv>
+        </motion.div>
       </div>
-    </MotionDiv>
+    </motion.div>
   )
 }

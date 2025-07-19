@@ -78,14 +78,14 @@ export default function ProfileScreen() {
 
   return (
     <motion.div
-      {...({ className: "p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto" } as any)}
+      className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Profile Header */}
       <motion.div
-        {...({ className: "bg-white rounded-3xl shadow-lg border border-gray-100" } as any)}
+        className="bg-white rounded-3xl shadow-lg border border-gray-100"
         variants={itemVariants}
         whileHover={{ scale: 1.01 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -93,7 +93,7 @@ export default function ProfileScreen() {
         <div className="p-8">
           <div className="flex items-center">
             <motion.div
-              {...({ className: "w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-200" } as any)}
+              className="w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-200"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
@@ -102,7 +102,7 @@ export default function ProfileScreen() {
 
             <div className="ml-6 flex-1">
               <motion.h2
-                {...({ className: "text-3xl font-bold text-gray-900" } as any)}
+                className="text-3xl font-bold text-gray-900"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
@@ -110,7 +110,7 @@ export default function ProfileScreen() {
                 {user?.name || '用户'}
               </motion.h2>
               <motion.p
-                {...({ className: "text-gray-600 text-lg" } as any)}
+                className="text-gray-600 text-lg"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
@@ -122,7 +122,7 @@ export default function ProfileScreen() {
                  user?.role === 'TEACHER' ? '教师' : '学员'}
               </motion.p>
               <motion.div
-                {...({ className: "flex flex-wrap items-center mt-3 gap-3" } as any)}
+                className="flex flex-wrap items-center mt-3 gap-3"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}

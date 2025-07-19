@@ -99,17 +99,7 @@ export default function LoginPage() {
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
           {/* Header */}
           <div className="text-center mb-8">
-<<<<<<< HEAD
             <h1 className="text-2xl font-bold text-black">
-=======
-            <motion.div
-              className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
-              whileHover={{ scale: 1.05, rotate: 5 }}
-            >
-              <User className="h-8 w-8 text-white" />
-            </motion.div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
->>>>>>> e8a1de8ddd91f83adaee06c4fc8e3b37db735c54
               {isLogin ? '欢迎回来' : '创建账号'}
             </h1>
             <p className="text-gray-600 mt-2">
